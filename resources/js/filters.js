@@ -5,61 +5,66 @@ import Storage from './saveData.js'
 
 class App {
     constructor() {
-        this.storage = new Storage()
+        this.storage = new Storage();
 
-        this.storage = new Storage()
+        this.storage = new Storage();
         this.currentID = 0;
         this.cardID = 0;
 
-        this.collectionList = new CollectionList(document.querySelector('#collection-container'))
-        this.collectionList.onCollectionClicked = collection => this.selectCollection(collection)
-        this.collectionList.edit = collection => this.editCollection(collection)
-        this.collectionList.delete = ev => this.openDeleteWindowCollection(ev)
-        this.collectionList.create = ev => this.downloadCollections(ev)
+        this.collectionList = new CollectionList(document.querySelector('#collection-container'));
+        this.collectionList.onCollectionClicked = collection => this.selectCollection(collection);
+        this.collectionList.edit = collection => this.editCollection(collection);
+        this.collectionList.delete = ev => this.openDeleteWindowCollection(ev);
+        this.collectionList.create = ev => this.downloadCollections(ev);
 
-        this.cardsList = new CardList(document.querySelector('#card-container'))
-        this.cardsList.deleteCard = ev => this.openDeleteWindowCard(ev)
-        this.cardsList.editCard = ev => this.editCard(ev)
-
-
-        this.overlay = document.querySelector('#overlay')
-        this.addCollectionButton = document.querySelector('#new-collection-button')
-        this.collectionEditor = document.querySelector('#collection-editor')
-        this.collectionEditorSaveButton = document.querySelector('#button-save-new-collection')
-        this.collectionEditorCancelButton = document.querySelector('#button-cancel-new-collection')
-        this.cardsTab = document.querySelector('#cards-tab')
-        this.addCardButton = document.querySelector('#new-card-button')
-        this.cardEditor = document.querySelector('#card-editor')
-        this.cardEditorSaveButton = document.querySelector('#button-save-new-card')
-        this.cardEditorCancelButton = document.querySelector('#button-cancel-new-card')
-        this.searchBar = document.querySelector('#searchBar')
-        this.orderSelection = document.querySelector('#order-selection')
-        this.deleteWindow = document.getElementById("delete-window")
-        this.deleteButtonCommit = document.getElementById("delete-yes")
-        this.deleteButtonCancel = document.getElementById("delete-cancel")
-        this.deleteWindowHeading = document.querySelector(".delete-window-heading")
-        this.deleteWindowCard = document.getElementById("delete-window-card")
-        this.deleteButtonCard = document.getElementById("delete-yes-card")
-        this.deleteButtonCardCancel = document.getElementById("delete-cancel-card")
-        this.colorSelection = document.querySelector("#color-selection")
-        this.closeCards = document.querySelector('#close-cards')
+        this.cardsList = new CardList(document.querySelector('#card-container'));
+        this.cardsList.deleteCard = ev => this.openDeleteWindowCard(ev);
+        this.cardsList.editCard = ev => this.editCard(ev);
 
 
+        this.overlay = document.querySelector('#overlay');
+        this.addCollectionButton = document.querySelector('#new-collection-button');
+        this.collectionEditor = document.querySelector('#collection-editor');
+        this.collectionEditorSaveButton = document.querySelector('#button-save-new-collection');
+        this.collectionEditorCancelButton = document.querySelector('#button-cancel-new-collection');
+        this.cardsTab = document.querySelector('#cards-tab');
+        this.addCardButton = document.querySelector('#new-card-button');
+        this.cardEditor = document.querySelector('#card-editor');
+        this.cardEditorSaveButton = document.querySelector('#button-save-new-card');
+        this.cardEditorCancelButton = document.querySelector('#button-cancel-new-card');
+        this.searchBar = document.querySelector('#searchBar');
+        this.orderSelection = document.querySelector('#order-selection');
+        this.deleteWindow = document.getElementById("delete-window");
+        this.deleteButtonCommit = document.getElementById("delete-yes");
+        this.deleteButtonCancel = document.getElementById("delete-cancel");
+        this.deleteWindowHeading = document.querySelector(".delete-window-heading");
+        this.deleteWindowCard = document.getElementById("delete-window-card");
+        this.deleteButtonCard = document.getElementById("delete-yes-card");
+        this.deleteButtonCardCancel = document.getElementById("delete-cancel-card");
+        this.colorSelection = document.querySelector("#color-selection");
+        this.closeCards = document.querySelector('#close-cards');
+        this.searchCards = document.querySelector('#searchCard');
+        this.colorPicker = document.getElementsByClassName("color-field");
 
-        this.collectionEditorSaveButton.addEventListener('click', () => this.saveOrCreateCollection())
-        this.collectionEditorCancelButton.addEventListener('click', () => this.closeCollectionEditor())
-        this.cardEditorSaveButton.addEventListener('click', () => this.saveOrCreateCard())
-        this.cardEditorCancelButton.addEventListener('click', () => this.closeCardEditor())
-        this.addCardButton.addEventListener('click', () => this.openCardEditor(null))
-        this.closeCards.addEventListener('click',() => this.closeCardsTab())
 
-        this.searchBar.addEventListener('keyup', () => this.searchCollection())
-        this.orderSelection.addEventListener("change", () => this.updateCollectionList())
-        this.deleteButtonCommit.addEventListener('click', (ev) => this.deleteCollection(ev))
-        this.deleteButtonCancel.addEventListener('click', () => this.closeDeleteWindow())
-        this.deleteButtonCard.addEventListener('click', (ev) => this.deleteCard(ev))
-        this.deleteButtonCardCancel.addEventListener('click', () => this.closeDeleteCard())
-        this.colorSelection.addEventListener('change', () => this.filterAfterColor(this.colorSelection.value))
+
+
+        this.collectionEditorSaveButton.addEventListener('click', () => this.saveOrCreateCollection());
+        this.collectionEditorCancelButton.addEventListener('click', () => this.closeCollectionEditor());
+        this.cardEditorSaveButton.addEventListener('click', () => this.saveOrCreateCard());
+        this.cardEditorCancelButton.addEventListener('click', () => this.closeCardEditor());
+        this.addCardButton.addEventListener('click', () => this.openCardEditor(null));
+        this.closeCards.addEventListener('click', () => this.closeCardsTab());
+        this.searchCards.addEventListener('keyup', () => this.searchCardsList());
+
+
+        this.searchBar.addEventListener('keyup', () => this.searchCollection());
+        this.orderSelection.addEventListener("change", () => this.updateCollectionList());
+        this.deleteButtonCommit.addEventListener('click', (ev) => this.deleteCollection(ev));
+        this.deleteButtonCancel.addEventListener('click', () => this.closeDeleteWindow());
+        this.deleteButtonCard.addEventListener('click', (ev) => this.deleteCard(ev));
+        this.deleteButtonCardCancel.addEventListener('click', () => this.closeDeleteCard());
+        this.colorSelection.addEventListener('change', () => this.filterAfterColor(this.colorSelection.value));
 
         document.addEventListener("click", function(ev) {
             if (ev.target.className != "fas fa-ellipsis-h") {
@@ -73,36 +78,48 @@ class App {
                 }
             }
         })
-        this.updateCollectionList()
+        this.updateCollectionList();
+
+        for (let i = 0; i < this.colorPicker.length; i++) {
+            this.colorPicker[i].addEventListener("click", () => {
+                for (let s = 0; s < this.colorPicker.length; s++) {
+                    this.colorPicker[s].classList.remove("selected-color");
+                }
+                this.colorPicker[i].classList.add("selected-color");
+            })
+        }
     }
 
-    closeCardsTab(){
-      this.cardsTab.classList.add('hidden')
+    closeCardsTab() {
+        this.cardsTab.classList.add('hidden');
     }
+
+
+
 
     filterAfterColor(ev) {
-      this.closeCardsTab()
+        this.closeCardsTab();
 
 
 
-        var color = ev
-        var collection = document.querySelectorAll(".collection-card")
+        var color = ev;
+        var collection = document.querySelectorAll(".collection-card");
 
-        let input, text
+        let input, text;
 
         for (let i = 0; i < collection.length; i++) {
-            text = this.storage.collections[i].color
+            text = this.storage.collections[i].color;
 
 
             if (text.indexOf(color) > -1) {
-                collection[i].classList.remove("color-filter")
+                collection[i].classList.remove("color-filter");
             } else {
-                collection[i].classList.add("color-filter")
+                collection[i].classList.add("color-filter");
             }
         }
         if (color === "nothing") {
             for (let i = 0; i < collection.length; i++) {
-                collection[i].classList.remove("color-filter")
+                collection[i].classList.remove("color-filter");
             }
         }
 
@@ -110,20 +127,20 @@ class App {
 
     searchCollection() {
 
-      this.closeCardsTab()
+        this.closeCardsTab();
 
-        let input, text
-        var collection = document.querySelectorAll(".collection-card")
+        let input, text;
+        var collection = document.querySelectorAll(".collection-card");
 
         input = this.searchBar.value.toLowerCase();
 
         for (let i = 0; i < collection.length; i++) {
-            text = this.storage.collections[i].categories
+            text = this.storage.collections[i].categories;
 
             if (text.toLowerCase().indexOf(input) > -1) {
-                collection[i].classList.remove("search-filter")
+                collection[i].classList.remove("search-filter");
             } else {
-                collection[i].classList.add("search-filter")
+                collection[i].classList.add("search-filter");
             }
         }
     }
@@ -134,7 +151,7 @@ class App {
             type: 'text/plain'
         })
         let title = this.storage.getCollectionById(id).title;
-        let txt = this.storage.getElements(id)
+        let txt = this.storage.getElements(id);
 
         var element = document.createElement('a');
         element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(txt));
@@ -151,11 +168,10 @@ class App {
 
 
 
-
     editCollection(id) {
         for (let i = 0; i < this.storage.collections.length; i++) {
             if (this.storage.collections[i].id === id) {
-                this.openCollectionEditor(this.storage.collections[i])
+                this.openCollectionEditor(this.storage.collections[i]);
                 this.currentID = id;
             }
         }
@@ -165,7 +181,7 @@ class App {
         for (let i = 0; i < this.storage.collections.length; i++) {
             for (let s = 0; s < this.storage.collections[i].cards.length; s++) {
                 if (this.storage.collections[i].cards[s].id === id) {
-                    this.openCardEditor(this.storage.collections[i].cards[s])
+                    this.openCardEditor(this.storage.collections[i].cards[s]);
                     this.cardID = id;
                 }
             }
@@ -178,46 +194,47 @@ class App {
 
     openDeleteWindowCollection(ev) {
         //ev.stopPropagation()
-        this.currentID = ev
+        this.currentID = ev;
         this.deleteWindow.style.visibility = "visible";
     }
 
     openDeleteWindowCard(ev) {
         //ev.stopPropagation()
-        this.currentID = ev
-        this.deleteWindowHeading.innerHTML = "Sure you wan to delete this Card?"
-        this.deleteWindow.style.visibility = "visible";
+        this.cardID = ev;
+        this.deleteWindowCard.style.visibility = "visible";
     }
 
     closeDeleteCard() {
-        this.deleteWindow.style.visibility = "hidden";
+        this.deleteWindowCard.style.visibility = "hidden";
 
     }
 
-		deleteCollection() {
-        this.cardsTab.classList.add('hidden')
-        this.storage.deleteCollection(this.currentID)
-        this.updateCollectionList()
-        this.closeDeleteWindow()
+    deleteCollection() {
+        this.cardsTab.classList.add('hidden');
+        this.storage.deleteCollection(this.currentID);
+        this.updateCollectionList();
+        this.closeDeleteWindow();
 
     }
 
     deleteCard() {
-        this.storage.deleteCard(this.currentID)
-        this.updateCollectionList()
-        closeDeleteCard()
+        this.storage.deleteCard(this.cardID);
+        this.closeDeleteCard();
+        this.cardID = 0;
+        this.updateCardList();
     }
 
 
     // COLLECTIONS
 
     selectCollection(collection) {
-        this.selectedCollectionId = collection.id
-        this.cardsTab.classList.remove('hidden')
-        this.updateCardList()
+        this.selectedCollectionId = collection.id;
+        this.cardsTab.classList.remove('hidden');
+        this.updateCardList();
     }
 
     openCollectionEditor(collection) {
+        document.getElementById("black").classList.add("selected-color");
         if (collection) {
             document.querySelector(".editor-heading").innerHTML = "Edit Collection";
             document.getElementById("collection-title").value = collection.title;
@@ -232,8 +249,8 @@ class App {
             document.getElementById("collection-categories").value = "";
         }
 
-        this.overlay.classList.add('active')
-        this.collectionEditor.classList.remove('hidden')
+        this.overlay.classList.add('active');
+        this.collectionEditor.classList.remove('hidden');
     }
 
     saveOrCreateCollection() {
@@ -241,33 +258,43 @@ class App {
         var commentInput = document.getElementById("collection-comment").value;
         var categoriesInput = document.getElementById("collection-categories").value;
 
+
+
         if (this.currentID === 0) {
+            this.color = document.querySelector(".color-field.selected-color").id;
             this.storage.addCollection({
+                color: this.color,
                 title: titleInput,
                 comment: commentInput,
                 categories: categoriesInput
+
             })
         } else {
-            var collection = this.storage.getCollectionById(this.currentID)
-            collection.title = titleInput
-            collection.comment = commentInput
-            collection.categories = categoriesInput
+            let collection = this.storage.getCollectionById(this.currentID);
+            this.color = document.querySelector(".color-field.selected-color").id;
+            collection.color = this.color;
+            collection.title = titleInput;
+            collection.comment = commentInput;
+            collection.categories = categoriesInput;
 
         }
         this.currentID = 0;
+        document.querySelector(".color-field.selected-color").classList.remove("selected-color");
 
-        this.updateCollectionList()
-        this.closeCollectionEditor()
+
+        this.updateCollectionList();
+        this.closeCollectionEditor();
+        this.storage.flush();
 
     }
 
     closeCollectionEditor() {
-        this.overlay.classList.remove('active')
-        this.collectionEditor.classList.add('hidden')
+        this.overlay.classList.remove('active');
+        this.collectionEditor.classList.add('hidden');
     }
 
     updateCollectionList() {
-        this.collectionList.render(this.storage.collections, this.orderSelection.value)
+        this.collectionList.render(this.storage.collections, this.orderSelection.value);
     }
 
 
@@ -286,8 +313,8 @@ class App {
             document.getElementById("card-comment").value = "";
         }
 
-        this.overlay.classList.add('active')
-        this.cardEditor.classList.remove('hidden')
+        this.overlay.classList.add('active');
+        this.cardEditor.classList.remove('hidden');
     }
 
     saveOrCreateCard() {
@@ -301,23 +328,49 @@ class App {
             })
 
         } else {
-            var card = this.storage.getCardByID(this.cardID)
-            card.title = titleInput
-            card.comment = commentInput
+            var card = this.storage.getCardByID(this.cardID);
+            card.title = titleInput;
+            card.comment = commentInput;
         }
         this.cardID = 0;
-        this.updateCardList()
-        this.closeCardEditor()
+        this.updateCardList();
+        this.closeCardEditor();
         this.storage.flush();
     }
 
     closeCardEditor() {
-        this.overlay.classList.remove('active')
-        this.cardEditor.classList.add('hidden')
+        this.cardID = 0
+        this.overlay.classList.remove('active');
+        this.cardEditor.classList.add('hidden');
     }
+
 
     updateCardList() {
         this.cardsList.render(this.storage.getCollectionById(this.selectedCollectionId).cards)
+    }
+
+    searchCardsList() {
+        var cards = this.storage.getCollectionById(this.selectedCollectionId).cards;
+        let input, text;
+        var openCards = document.querySelector("#card-container").getElementsByClassName("card-frame")
+
+        var collection = document.querySelectorAll(".collection-card");
+
+        input = this.searchCards.value.toLowerCase();
+
+        for (let i = 0; i < collection.length; i++) {
+            if (this.storage.collections[i].id === this.selectedCollectionId) {
+                for (let s = 0; s < cards.length; s++) {
+                    text = this.storage.collections[i].cards[s].title + this.storage.collections[i].cards[s].title;
+
+                    if (text.toLowerCase().indexOf(input) > -1) {
+                        openCards[s].classList.remove("search-filter");
+                    } else {
+                        openCards[s].classList.add("search-filter");
+                    }
+                }
+            }
+        }
     }
 
 
@@ -329,10 +382,6 @@ class App {
 
 
 }
-
-
-
-
 
 
 

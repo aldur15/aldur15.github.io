@@ -9,7 +9,6 @@ body {
     color: ##F0FFFF;
     font-weight: 200;
     display: flex;
-
 }
 
 .hidden{
@@ -26,17 +25,76 @@ body {
   padding: 0;
 }
 
+#heading {
+    grid-area: heading;
+    color: #F0FFF0;
+    border-color: #F0FFF0;
+    border-style: solid;
+    background-color: #4cca96;
+    padding: 20px;
+    text-align: center;
+    font-size: 25px;
+    font-family: 'Pacifico', cursive;
+}
+
+/*General Button*/
+
+.generalButton{
+  background-color: #4cca96;
+  border: none;
+  padding: 10px 35px;
+  display: inline-block;
+  margin-left: 10px;
+  border-radius: 2px;
+  font-size: 12px;
+  font-family: "Cinzel", serif;
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+}
+
+.generalButton:hover{
+  background-color: #58E8AD;
+}
+
+/*collection cards*/
+
 .collection-card{
   color: #414242;
   background-color: #F0F8FF;
   border-style: solid;
   border-radius: 4px;
   border-width: 3px;
-  margin: 5px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  background: #c1c2c3;
+  box-shadow: 10px 12px 0.5rem rgba(0,0,0,0.5);
 }
 
-
 .collection-card:hover{
+  color: #414242;
+
+  border-style: solid;
+  border-radius: 4px;
+  border-width: 3px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  background: #E1E2E3;
+  box-shadow: 10px 12px 0.5rem rgba(0,0,0,0.5);
+}
+
+/*Site-menu*/
+
+#site-menu{
+  list-style-type: none;
+  grid-area: menu;
+  height: 100%;
+  padding: 20px;
+  background: #F0F8FF;
+  border-color: #F0FFF0;
+  border-style: solid;
+  box-sizing: border-box;
+  border-radius: 15px;
 }
 
 .menu-points{
@@ -44,6 +102,7 @@ body {
   color: #000;
   padding: 16px 32px;
   text-decoration: none;
+  font-family: 'Pacifico', cursive;
 }
 
 li a:hover {
@@ -51,24 +110,19 @@ li a:hover {
   color: white;
 }
 
+/*Zeiten*/
 
-#collection-menu-point{
+.fa-times{
+  float: right;
+  position: inherit;
+  margin-right: 10px;
+  margin-top: 30px;
 
 }
 
-.fas fa-times{
-  background-color: #4cca96;
-  border: none;
-  padding: 10px 35px;
-  display: inline-block;
-  margin: 5px 2px;
-  margin-top: 20px;
-  border-radius: 2px;
-  font-size: 12px;
-  font-family: "Cinzel", serif;
+.fa-times:hover{
+  color: #4cca96;
   cursor: pointer;
-  text-decoration: none;
-  color: white;
 }
 
 #collections-tab{
@@ -87,6 +141,8 @@ li a:hover {
   border-radius: 15px;
 }
 
+/*dropdown Options*/
+
 .fa-ellipsis-h {
   float: right;
   position: inherit;
@@ -99,34 +155,7 @@ li a:hover {
   cursor: pointer;
 }
 
-#heading {
-    grid-area: heading;
-    color: #F0FFF0;
-    border-color: #F0FFF0;
-    border-style: solid;
-    background-color: #4cca96;
-    padding:20px;
-    text-align: center;
-    font-family: "Cinzel", serif;
-}
-
-
-#site-menu{
-  list-style-type: none;
-  grid-area: menu;
-  height: 100%;
-  padding: 20px;
-  background: #F0F8FF;
-  border-color: #F0FFF0;
-  border-style: solid;
-  box-sizing: border-box;
-  border-radius: 15px;
-}
-
-
-a{
-  color: #414242;
-}
+/*Filter und Search Options*/
 
 #search-options{
   grid-area: filter;
@@ -142,7 +171,6 @@ a{
   border-style: solid;
 }
 
-
 #filter-options{
   grid-area: filter;
   float: left;
@@ -151,8 +179,14 @@ a{
   display: flex;
   flex-flow: column;
   margin-top: 15px;
+  background: #F0F8FF;
+  border-color: #F0FFF0;
+  border-style: solid;
+  box-sizing: border-box;
+  border-radius: 15px;
 }
 
+/*Create Collections Window and Button*/
 
 .create-collection-window{
   grid-area: rest;
@@ -166,21 +200,25 @@ a{
   border-radius: 15px;
 }
 
-
-
 #new-collection-button{
-    background-color: #4cca96;
-    border: none;
-    padding: 10px 35px;
-    display: inline-block;
-    margin: 5px 2px;
-    border-radius: 2px;
-    font-size: 12px;
-    font-family: "Cinzel", serif;
-    cursor: pointer;
-    text-decoration: none;
-    color: white;
+  background-color: #4cca96;
+  border: none;
+  padding: 10px 35px;
+  display: inline-block;
+  margin: 5px 2px;
+  border-radius: 2px;
+  font-size: 12px;
+  font-family: "Cinzel", serif;
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
 }
+
+#new-collection-button:hover{
+  background-color: #58E8AD;
+}
+
+/*Search bar*/
 
 #searchBar {
   box-sizing: border-box;
@@ -188,22 +226,30 @@ a{
   border-radius: 4px;
   font-size: 16px;
   background-color: white;
-  margin-top: 20px;
   margin-bottom: 20px;
   padding: 5px;
   width: 100%;
+}
+
+.categories-search-bar{
+  margin-top: 5px;
+}
+
+.filter-search-bar{
+  margin-top: 5px;
+}
+
+.collection-seach-bar{
+  margin-top: 20px;
 }
 
 #order-selection {
   margin-bottom: 20px;
 }
 
-#new-collection-button:hover{
-  background-color: #32CD90;
-}
+/*Collection Editor*/
 
 #collection-editor{
-
   position: fixed;
   top: 50%;
   left: 50%;
@@ -214,8 +260,9 @@ a{
   z-index: 10;
   background-color: white;
   width: 500px;
-
 }
+
+/*Collection Styles*/
 
 #editor-title, #comment, #categories{
   width: 90%;
@@ -226,9 +273,9 @@ a{
 
 .collectionTitle{
   display: inline-block;
-  background-color: #4cca96;
-  font-family: serif;
+  font-family: "Cinzel", serif;
   font-size: 30px;
+  text-decoration: underline;
   margin: 5px;
   padding: 2px;
 }
@@ -242,6 +289,7 @@ a{
 .collectionComment{
   font-size: 15px;
   border: 1px solid black;
+  border-radius: 3px;
   margin: 5px;
   height: 100px;
   background-color: #eef2f1;
@@ -265,20 +313,6 @@ a{
   width: 95%;
   margin-left: 10px;
   margin-right: 10px;
-}
-
-.generalButton{
-  background-color: #4cca96;
-  border: none;
-  padding: 10px 35px;
-  display: inline-block;
-  margin-left: 10px;
-  border-radius: 2px;
-  font-size: 12px;
-  font-family: "Cinzel", serif;
-  cursor: pointer;
-  text-decoration: none;
-  color: white;
 }
 
 /*Card Editor Styles*/
@@ -308,8 +342,7 @@ a{
   font-family: "Cinzel", serif;
 }
 
-.cardEditor-buttons-bar{
-}
+/*Card button*/
 
 #new-card-button{
   background-color: #4cca96;
@@ -326,13 +359,15 @@ a{
   color: white;
 }
 
+#new-card-button:hover{
+  background-color: #58E8AD;
+}
 
 /*Card Styles*/
+
 .card-title{
   display: inline-block;
-  background-color: #4cca96;
-  color: white;
-  font-family: serif;
+  font-family: "Cinzel", serif;
   font-size: 20px;
   margin: 5px;
   padding: 2px;
@@ -343,9 +378,12 @@ a{
   margin: 10px;
   width: 95%;
 }
+
 .card-comment{
   font-size: 20px;
+  background-color: white;
   border: 1px solid black;
+  border-radius: 3px;
   margin: 5px;
   height: 100px;
 }
@@ -358,31 +396,18 @@ a{
   resize: none;
 }
 
-
-.close-cards-button{
-  background-color: #4cca96;
-  border: none;
-  padding: 10px 35px;
-  display: inline-block;
-  margin: 5px 2px;
-  margin-top: 20px;
-  border-radius: 2px;
-  font-size: 12px;
-  font-family: "Cinzel", serif;
-  cursor: pointer;
-  text-decoration: none;
-  color: white;
-}
-
 .card-frame{
   color: #414242;
-  background-color: #F0F8FF;
+  background-color: #c1c2c9;
   border-style: solid;
   border-radius: 5px;
   border-width: 1px;
   margin: 5px;
 }
 
+.card-frame:hover{
+  background-color: #E1E2E3;
+}
 
 /*Dropdown Menu*/
 
@@ -405,20 +430,15 @@ a{
 
 }
 
-.dropdown a:hover {background-color: #ddd;}
+.dropdown a:hover {background-color: #F0F8FF;}
 
 .show {display: block;}
 
-.drop-down-edit {
-}
+.drop-down-edit:hover {background-color: #ddd;}
 
-.drop-down-delete {
+.drop-down-delete:hover {background-color: #ddd;}
 
-}
-
-.drop-down-download{
-
-}
+.drop-down-create:hover{background-color: #ddd;}
 
 /*Colors*/
 
@@ -443,43 +463,24 @@ a{
 
 }
 
-.blue{
+.blue{background:#0000FF;}
 
-  background:#0000FF;
+.magenta{background:#8B008B;}
 
-}
-.magenta{
+.orange{background:#FF8C00;}
 
-  background:#8B008B;
+.red{background:#8B0000;}
 
-}
-.orange{
+.green{background:#006400;}
 
-  background:#FF8C00;
-}
-.red{
+.grey{background:#A9A9A9;}
 
-  background:#8B0000;
-}
-.green{
+.brown{background:#D2691E;}
 
-  background:#006400;
-}
-.grey{
+.white{background:#F8F8FF;}
 
-  background:#A9A9A9;
-}
-.brown{
+.black{background: #000000;}
 
-  background:#D2691E;
-}
-.white{
-
-  background:#F8F8FF;
-}
-.black{
-  background: #000000;
-}
 .selected-color{
   border-style:solid;
   border-color: black;
@@ -508,11 +509,39 @@ a{
   margin-left: 5px;
 
 }
-.delete-button-yes{
-
+.delete-yes{
+  background-color: #4cca96;
+  border: none;
+  padding: 10px 35px;
+  display: inline-block;
+  margin-left: 10px;
+  border-radius: 2px;
+  font-size: 12px;
+  font-family: "Cinzel", serif;
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
 }
 .delete-button-cancel{
+  background-color: #4cca96;
+  border: none;
+  padding: 10px 35px;
+  display: inline-block;
+  margin-left: 10px;
+  border-radius: 2px;
+  font-size: 12px;
+  font-family: "Cinzel", serif;
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+}
 
+.delete-button-cancel:hover{
+  background-color: #58E8AD;
+}
+
+.delete-yes:hover{
+  background-color: #58E8AD;
 }
 
 #delete-yes{
@@ -561,7 +590,7 @@ a{
   font-size: 12px;
 }
 
-
+/*Overlay*/
 
 #overlay {
   position: fixed;
